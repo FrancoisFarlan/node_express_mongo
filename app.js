@@ -2,11 +2,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
 const path = require('path');
+//utilisation fichier .env
+const dotenv = require('dotenv');
+
+//config fichier .env
+dotenv.config();
 
 const app = express();
 
+//récup variables environnement
+const username = process.env.MONGO_USERNAME;
+const password = process.env.MONGO_PASSWORD;
+
 //MongoDB
-mongoose.connect('mongodb+srv://username:password@cluster0.o3lqv7e.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.o3lqv7e.mongodb.net/?retryWrites=true&w=majority`,
     { useNewUrlParser: true,
         useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
